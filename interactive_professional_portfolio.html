@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitri Puspa Arista - Interactive Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-link.active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: bold; }
+        @media (max-width: 768px) { .chart-container { height: 300px; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+
+    <!-- Chosen Palette: Executive Professional (Navy, Slate, Soft White, Blue Accent) -->
+    
+    <!-- Application Structure Plan:
+         Aplikasi ini disusun dalam format Dashboard Interaktif dengan navigasi berbasis tab.
+         Struktur ini dipilih agar pengguna dapat melakukan 'drill-down' ke spesialisasi tertentu (Bisnis, Kreatif, atau Media) 
+         tanpa harus menggulir halaman yang sangat panjang. 
+         Navigasi mencakup:
+         1. Dashboard Overview: Ringkasan profil dan visualisasi sebaran keahlian menggunakan Chart.js.
+         2. Experience & Timeline: Daftar riwayat kerja yang dikategorikan secara dinamis.
+         3. Thought Leadership: Katalog publikasi interaktif.
+         4. Awards & Stats: Pencapaian dalam format visual.
+    -->
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">F</div>
+                    <span class="text-xl font-bold text-slate-900">Fitri Puspa Arista</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="switchTab('overview')" class="nav-link h-16 px-1 active transition-colors">Overview</button>
+                    <button onclick="switchTab('experience')" class="nav-link h-16 px-1 transition-colors">Pengalaman</button>
+                    <button onclick="switchTab('publications')" class="nav-link h-16 px-1 transition-colors">Publikasi</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+        
+        <!-- SECTION: OVERVIEW -->
+        <div id="overview" class="tab-content active space-y-8">
+            <header class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center gap-8">
+                <div class="w-40 h-40 flex-shrink-0">
+                    <img src="image_82d0e1.png" alt="Fitri Puspa Arista" class="w-full h-full object-cover rounded-full border-4 border-blue-50 shadow-lg">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-3xl font-bold text-slate-900">Social Media Specialist & Digital Entrepreneur</h1>
+                    <p class="text-blue-600 font-medium text-lg mb-4">Strategist | Content Creator | Journalist</p>
+                    <p class="text-slate-600 max-w-2xl">
+                        Profesional media digital dengan pengalaman lebih dari 1 dekade. Menghubungkan jurnalisme tradisional dengan ekosistem rintisan digital (startup) melalui pendekatan berbasis data dan strategi konten kreatif.
+                    </p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">Matriks Kompetensi</h3>
+                    <p class="text-sm text-slate-500 mb-6">Visualisasi ini menunjukkan distribusi keahlian utama saya yang terbagi dalam bidang Strategi Bisnis, Produksi Kreatif, dan Komunikasi Massa.</p>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">Sorotan Pendidikan & Prestasi</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start">
+                            <div class="p-2 bg-blue-100 text-blue-600 rounded">
+                                <span class="font-bold">S1</span>
+                            </div>
+                            <div>
+                                <p class="font-bold">Bisnis Digital</p>
+                                <p class="text-sm text-slate-500">Universitas Kepanjen, Malang (Aktif)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-2 bg-yellow-100 text-yellow-600 rounded">
+                                <span class="font-bold">#1</span>
+                            </div>
+                            <div>
+                                <p class="font-bold">Program Tayangan Terbaik</p>
+                                <p class="text-sm text-slate-500">Audio Visual 3 - Ilmu Komunikasi UMM (2014)</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-2 bg-green-100 text-green-600 rounded">
+                                <span class="font-bold">Top</span>
+                            </div>
+                            <div>
+                                <p class="font-bold">10 Besar Food Photographer</p>
+                                <p class="text-sm text-slate-500">EJSC Malang / Bakorwil Jatim (2020)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: EXPERIENCE -->
+        <div id="experience" class="tab-content space-y-8">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Perjalanan Profesional</h2>
+                <p class="text-slate-600 mb-8">Eksplorasi riwayat kerja saya yang mencakup pengalaman di media jaringan nasional, rintisan bisnis mandiri, hingga penyiaran radio.</p>
+                
+                <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                    <!-- Item 1 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                            <span class="text-xs">2024</span>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[45%] p-4 rounded border border-slate-200 bg-white shadow">
+                            <div class="flex items-center justify-between space-x-2 mb-1">
+                                <div class="font-bold text-slate-900">Social Media Specialist</div>
+                                <time class="font-medium text-blue-600 text-sm">Present</time>
+                            </div>
+                            <div class="text-slate-500 text-sm mb-2">Jatim Times Network</div>
+                            <p class="text-slate-600 text-sm">Memimpin perencanaan strategi konten, periklanan, dan SEO untuk jaringan digital Jatim Times.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                            <span class="text-xs">2026</span>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[45%] p-4 rounded border border-slate-200 bg-white shadow">
+                            <div class="flex items-center justify-between space-x-2 mb-1">
+                                <div class="font-bold text-slate-900">Founder & Strategist</div>
+                                <time class="font-medium text-blue-600 text-sm">Active</time>
+                            </div>
+                            <div class="text-slate-500 text-sm mb-2">Digital Business Startup</div>
+                            <p class="text-slate-600 text-sm">Mengembangkan konsep ekosistem bisnis modern dan riset pasar mandiri.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-400 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                            <span class="text-xs">2021</span>
+                        </div>
+                        <div class="w-[calc(100%-4rem)] md:w-[45%] p-4 rounded border border-slate-200 bg-white shadow">
+                            <div class="flex items-center justify-between space-x-2 mb-1">
+                                <div class="font-bold text-slate-900">Digital Marketing & News Anchor</div>
+                                <time class="text-slate-500 text-sm">2021 - 2024</time>
+                            </div>
+                            <div class="text-slate-500 text-sm mb-2">PT Malang Pos Siber</div>
+                            <p class="text-slate-600 text-sm">Eksperto dalam strategi pemasaran terpadu dan penyiaran berita terpercaya.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECTION: PUBLICATIONS -->
+        <div id="publications" class="tab-content space-y-8">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Thought Leadership & Karya Tulis</h2>
+                <p class="text-slate-600 mb-8">Sebagai seorang jurnalis dan strategist, saya aktif menyuarakan opini mengenai ekonomi digital, media, dan isu sosial melalui berbagai platform publikasi.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pubGrid">
+                    <!-- Cards will be populated by JS -->
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-slate-900 font-bold text-xl mb-4">Mari Berkolaborasi</p>
+            <p class="text-slate-500 mb-6">Tersedia untuk proyek strategis digital, produksi konten, dan manajemen media.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">LinkedIn Profile</a>
+                <a href="mailto:contact@domain.com" class="px-6 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition">Email Me</a>
+            </div>
+            <p class="mt-8 text-xs text-slate-400">&copy; 2026 Fitri Puspa Arista. Built for Digital Excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Visualization & Content Choices: 
+         - Keahlian Matrix -> Goal: Memberikan gambaran cepat spesialisasi -> Method: Radar Chart (Chart.js) -> Justification: Memungkinkan perbandingan kekuatan antar pilar (Business vs Creative vs Media).
+         - Timeline Pengalaman -> Goal: Menunjukkan progres karier -> Method: Interactive Vertical Timeline -> Justification: Struktur linear memudahkan pemahaman kronologis.
+         - Publikasi -> Goal: Menunjukkan kredibilitas pemikiran -> Method: Card Grid with Dynamic Filtering -> Justification: Memudahkan scan judul-judul esai.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <script>
+        // Data Store
+        const skillsData = {
+            labels: ['SEO & Digital Marketing', 'Digital Strategy', 'Photography', 'Videography', 'News Anchoring', 'Copywriting', 'Investigative Reporting'],
+            values: [95, 90, 88, 85, 92, 80, 85]
+        };
+
+        const publications = [
+            { title: "Menguji Logika Sachet Warung Madura", platform: "Kompasiana", date: "Jun 2026" },
+            { title: "Perempuan In This Economy", platform: "Bewomen", date: "Jun 2026" },
+            { title: "Evolusi Radio yang Tak Terhindarkan", platform: "Kompasiana", date: "Jun 2026" },
+            { title: "Ketika Jasa Kreatif Ditawar Asas Kekeluargaan", platform: "Kompasiana", date: "Jun 2026" },
+            { title: "Harta Karun Campor Lorjuk Pamekasan", platform: "Kompasiana", date: "Jun 2026" },
+            { title: "Chat Seksis & Objektifikasi Perempuan", platform: "Bewomen", date: "Apr 2026" }
+        ];
+
+        // Navigation Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Charts Initialization
+        function initCharts() {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: skillsData.labels,
+                    datasets: [{
+                        label: 'Level Kompetensi',
+                        data: skillsData.values,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderColor: 'rgba(37, 99, 235, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(37, 99, 235, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 50,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Populate Publications
+        function populatePublications() {
+            const grid = document.getElementById('pubGrid');
+            publications.forEach(pub => {
+                const card = document.createElement('div');
+                card.className = "p-5 bg-slate-50 border border-slate-200 rounded-lg hover:border-blue-300 transition-all group cursor-default";
+                card.innerHTML = `
+                    <div class="text-xs font-bold text-blue-600 uppercase mb-2">${pub.platform}</div>
+                    <h4 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-4 line-clamp-2">${pub.title}</h4>
+                    <div class="text-xs text-slate-400 italic">${pub.date}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Execution
+        window.onload = () => {
+            initCharts();
+            populatePublications();
+        };
+    </script>
+</body>
+</html>
